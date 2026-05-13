@@ -86,6 +86,14 @@ a {
   aspect-ratio: 1275 / 462;
 }
 
+.hero-frozen-stage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
 .hero-wordmark {
   position: absolute;
   inset: 0;
@@ -97,6 +105,13 @@ a {
 }
 
 .hero-overlay-group {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-static-doodle-group {
   position: absolute;
   inset: 0;
   z-index: 2;

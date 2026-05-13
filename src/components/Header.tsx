@@ -23,7 +23,7 @@ export default function Header() {
 
         <nav
           aria-label="Primary navigation"
-          className="flex flex-wrap justify-end gap-x-8 gap-y-2 pt-18 text-[17px] font-light italic tracking-[0] text-black sm:gap-x-11 sm:text-[32px]"
+          className="flex flex-wrap justify-end gap-x-8 gap-y-2 pt-18 text-[17px] font-extralight italic tracking-[0] text-black sm:gap-x-11 sm:text-[32px]"
         >
           {navItems.map((item) => (
             <a key={item.href} className="nav-link" href={item.href}>

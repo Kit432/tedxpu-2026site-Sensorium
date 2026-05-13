@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
 
 const TARGET_DATE = new Date("2026-05-23T00:00:00+03:00").getTime();
 
@@ -206,11 +206,23 @@ function StaticDoodle({ doodle }: { doodle: HeroStaticDoodle }) {
 }
 
 export default function Hero() {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 0.18], [0, -112]);
-  const overlayY = useTransform(scrollYProgress, [0, 0.18], [0, -34]);
-  const scale = useTransform(scrollYProgress, [0, 0.18], [1, 0.92]);
-  const opacity = useTransform(scrollYProgress, [0, 0.18], [1, 0.58]);
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  /**
+   * This moves ONLY the static doodles/timer.
+   * Sensorium and MP4 doodles do not move.
+   */
+  const staticDoodleGroupY = useTransform(
+    scrollYProgress,
+    [0, 0.000001],
+    [0, -260]
+  );
+
   const [countdown, setCountdown] = useState(getCountdownLabel);
 
   useEffect(() => {
@@ -223,47 +235,65 @@ export default function Hero() {
 
   return (
     <section
+      ref={heroRef}
       id="hero"
-      className="relative flex min-h-[92svh] items-center justify-center overflow-hidden px-5 pb-12 pt-36 sm:px-10 sm:pt-44"
+      className="relative z-0 h-[145svh] overflow-visible"
     >
-      <motion.div
-        className="sensorium-stage"
-        style={{ y, scale, opacity }}
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <Image
-          src="/assets/sensorium.svg"
-          alt="Sensorium wordmark"
-          width={1275}
-          height={462}
-          priority
-          className="hero-wordmark"
-        />
+      <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden px-5 pb-12 pt-36 sm:px-10 sm:pt-44">
         <motion.div
-          className="hero-overlay-group"
-          style={{ y: overlayY }}
-          aria-hidden="false"
+          className="sensorium-stage"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
-          {heroDoodles.map((doodle) => (
-            <DoodleVideo key={`${doodle.name}-${doodle.left}`} doodle={doodle} />
-          ))}
-          {heroStaticDoodles.map((doodle) => (
-            <StaticDoodle key={doodle.name} doodle={doodle} />
-          ))}
-          <motion.p
-            className="hero-timer"
-            initial={{ opacity: 0, x: "-50%", y: 14 }}
-            animate={{ opacity: 1, x: "-50%", y: 0 }}
-            transition={{ duration: 0.65, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            aria-label="Countdown to 23 May 2026"
-            suppressHydrationWarning
+          {/* PINNED LAYER: Sensorium + MP4 doodles */}
+          <div className="hero-pinned-layer">
+            <div className="hero-video-doodle-layer" aria-hidden="true">
+              {heroDoodles.map((doodle) => (
+                <DoodleVideo
+                  key={`${doodle.name}-${doodle.left}`}
+                  doodle={doodle}
+                />
+              ))}
+            </div>
+
+            <Image
+              src="/assets/sensorium.svg"
+              alt="Sensorium wordmark"
+              width={1275}
+              height={462}
+              priority
+              className="hero-wordmark"
+            />
+          </div>
+
+          {/* SCROLLING LAYER: black/static doodles + timer */}
+          <motion.div
+            className="hero-static-doodle-group"
+            style={{ y: staticDoodleGroupY }}
+            aria-hidden="true"
           >
-            {countdown}
-          </motion.p>
+            {heroStaticDoodles.map((doodle) => (
+              <StaticDoodle key={doodle.name} doodle={doodle} />
+            ))}
+
+            <motion.p
+              className="hero-timer"
+              initial={{ opacity: 0, x: "-50%", y: 14 }}
+              animate={{ opacity: 1, x: "-50%", y: 0 }}
+              transition={{
+                duration: 0.65,
+                delay: 0.25,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              aria-label="Countdown to 23 May 2026"
+              suppressHydrationWarning
+            >
+              {countdown}
+            </motion.p>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
