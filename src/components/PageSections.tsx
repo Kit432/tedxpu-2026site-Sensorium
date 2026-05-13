@@ -18,13 +18,44 @@ const eventItems = [
 
 const teamItems = ["Curation", "Production", "Experience", "Partnerships"];
 
+const eventYearRows = [
+  ["X.ANNIVERSARY", "2025", "2024"],
+  ["2020", "2023", "2022", "2021", "2020", "2020"],
+  ["2019", "2018", "2017", "2016"],
+];
+
+function CoverTitle({ id, label, className = "" }: { id: string; label: string; className?: string }) {
+  return (
+    <h2 id={id} className={`cover-title ${className}`} aria-label={label}>
+      <svg className="cover-title-svg" viewBox="0 0 1000 185" aria-hidden="true" focusable="false">
+        <text x="0" y="179" textLength="1000" lengthAdjust="spacingAndGlyphs">
+          {label}
+        </text>
+      </svg>
+    </h2>
+  );
+}
+
 export default function PageSections() {
   return (
     <div className="site-sections">
       <section id="events" className="cover-section events-cover" aria-labelledby="events-title">
-        <h2 id="events-title" className="cover-title">
-          EVENTS
-        </h2>
+        <CoverTitle id="events-title" label="EVENTS" />
+
+        <div className="section-inner year-stack" aria-label="Event years">
+          {eventYearRows.map((row, rowIndex) => (
+            <div key={rowIndex} className="year-row">
+              {row.map((year, itemIndex) => (
+                <span
+                  key={`${rowIndex}-${itemIndex}-${year}`}
+                  className={year === "2017" ? "year-item active" : "year-item"}
+                >
+                  {year}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
 
         <div className="section-inner event-list" aria-label="Event highlights">
           {eventItems.map((event) => (
@@ -42,12 +73,10 @@ export default function PageSections() {
         </div>
       </section>
 
-      <section id="team" className="content-section" aria-labelledby="team-title">
+      <section id="team" className="cover-section teams-cover" aria-labelledby="team-title">
+        <CoverTitle id="team-title" label="TEAMS" className="teams-title" />
+
         <div className="section-inner">
-          <p className="section-eyebrow">Behind the event</p>
-          <h2 id="team-title" className="section-title">
-            Team
-          </h2>
           <div className="team-grid" aria-label="Team groups">
             {teamItems.map((item) => (
               <article key={item} className="team-tile">

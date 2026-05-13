@@ -8,7 +8,8 @@ const navItems = [
 
 export default function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-5 py-2 sm:px-8 lg:px-9">
+    <header className="fixed inset-x-0 top-0 z-[9999] bg-white/90 backdrop-blur px-5 sm:px-8 lg:px-9">
+
       <div className="flex items-start justify-between gap-6">
         <a href="#hero" className="block shrink-0" aria-label="TEDx Panteion University home">
           <Image

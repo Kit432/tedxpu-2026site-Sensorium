@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: auto;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
@@ -94,13 +94,6 @@ a {
   pointer-events: none;
 }
 
-.hero-scroll-plane {
-  position: absolute;
-  inset: 0 0 auto;
-  z-index: 20;
-  pointer-events: none;
-}
-
 .hero-frozen-stage {
   position: fixed;
   top: 50%;
@@ -131,6 +124,9 @@ a {
   inset: 0;
   z-index: 20;
   pointer-events: none;
+  transform: translateY(0);
+  transition: none;
+  will-change: transform;
 }
 
 .hero-doodle {
@@ -187,19 +183,33 @@ a {
 
 .cover-section {
   overflow: hidden;
-  min-height: 132svh;
+  min-height: auto;
+  padding-bottom: clamp(4rem, 9vw, 8rem);
 }
 
 .cover-title {
   position: relative;
   z-index: 2;
+  left: 50%;
   margin: 0;
   color: #000000;
-  font-size: clamp(7.4rem, 31vw, 36rem);
+  width: 104vw;
+  line-height: 0;
+  transform: translateX(-50%);
+}
+
+.cover-title-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cover-title-svg text {
+  fill: currentColor;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250px;
   font-weight: 950;
   letter-spacing: 0;
-  line-height: 0.72;
-  white-space: nowrap;
 }
 
 .section-inner {
@@ -209,10 +219,50 @@ a {
   margin-inline: auto;
 }
 
+.year-stack {
+  display: flex;
+  width: min(100% - 2rem, 118rem);
+  max-width: none;
+  flex-direction: column;
+  gap: clamp(0.18rem, 0.5vw, 0.45rem);
+  margin-top: clamp(0.2rem, 0.8vw, 0.65rem);
+  align-items: center;
+}
+
+.year-stack .year-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: clamp(2.65rem, 1.65vw, 1.5rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.year-stack .year-row:nth-child(3) {
+  justify-content: flex-start;
+}
+
+.year-stack .year-item {
+  display: inline-flex;
+  align-items: center;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(7.9rem, 5.4vw, 5.5rem);
+  font-weight: 950;
+  letter-spacing: -2;
+  line-height: 0.86;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.year-stack .year-item.active {
+  outline: 2px solid #8a4dff;
+  outline-offset: -2px;
+}
+
 .event-list {
   display: grid;
   gap: clamp(0.75rem, 1.5vw, 1.3rem);
-  padding-top: clamp(2.5rem, 8vw, 7rem);
+  padding-top: clamp(3rem, 7vw, 6rem);
   padding-bottom: clamp(5rem, 12vw, 10rem);
 }
 
@@ -225,6 +275,14 @@ a {
 
 .content-section {
   padding: clamp(5rem, 12vw, 10rem) 0;
+}
+
+.teams-cover {
+  padding-top: clamp(1rem, 4vw, 3rem);
+}
+
+.teams-title {
+  margin-top: clamp(23rem, 8vw, 7rem);
 }
 
 .team-grid {
@@ -390,11 +448,11 @@ a {
   }
 
   .cover-section {
-    min-height: 118svh;
+    padding-bottom: clamp(3.5rem, 14vw, 5rem);
   }
 
   .cover-title {
-    font-size: clamp(6.7rem, 29vw, 9rem);
+    width: 100vw;
   }
 
   .event-row {
@@ -436,10 +494,5 @@ a {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
-  }
-
-  .hero-static-doodle-group {
-    animation: none !important;
-    transform: none !important;
   }
 }

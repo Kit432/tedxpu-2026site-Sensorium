@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TARGET_DATE = new Date("2026-05-23T00:00:00+03:00").getTime();
 
@@ -185,6 +185,7 @@ function StaticDoodle({ doodle }: { doodle: HeroStaticDoodle }) {
 }
 
 export default function Hero() {
+  const staticDoodleGroupRef = useRef<HTMLDivElement | null>(null);
   const [countdown, setCountdown] = useState(getCountdownLabel);
 
   useEffect(() => {
@@ -193,6 +194,50 @@ export default function Hero() {
     }, 1000);
 
     return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const staticLayer = staticDoodleGroupRef.current;
+
+    if (!staticLayer) {
+      return;
+    }
+
+    let frame = 0;
+
+    const updateStaticDoodlePosition = () => {
+      frame = 0;
+
+      const stepSize = 28;
+      const speed = 0.65;
+      const steppedScrollY = Math.floor(window.scrollY / stepSize) * stepSize;
+      const staticDoodleY = steppedScrollY * -speed;
+
+      staticLayer.style.transform = `translate3d(0, ${staticDoodleY}px, 0)`;
+    };
+
+    const requestStaticDoodleUpdate = () => {
+      if (frame) {
+        return;
+      }
+
+      frame = window.requestAnimationFrame(updateStaticDoodlePosition);
+    };
+
+    updateStaticDoodlePosition();
+    window.addEventListener("scroll", requestStaticDoodleUpdate, {
+      passive: true,
+    });
+    window.addEventListener("resize", requestStaticDoodleUpdate);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      window.removeEventListener("scroll", requestStaticDoodleUpdate);
+      window.removeEventListener("resize", requestStaticDoodleUpdate);
+    };
   }, []);
 
   return (
@@ -221,12 +266,12 @@ export default function Hero() {
               className="hero-wordmark"
             />
           </div>
-        </div>
-      </div>
 
-      <div className="hero-scroll-plane flex h-[100svh] items-center justify-center overflow-visible px-5 pb-12 pt-36 sm:px-10 sm:pt-44">
-        <div className="sensorium-stage">
-          <div className="hero-static-doodle-group" aria-hidden="true">
+          <div
+            ref={staticDoodleGroupRef}
+            className="hero-static-doodle-group"
+            aria-hidden="true"
+          >
             {heroStaticDoodles.map((doodle) => (
               <StaticDoodle key={doodle.name} doodle={doodle} />
             ))}
