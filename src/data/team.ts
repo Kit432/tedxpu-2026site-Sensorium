@@ -24,7 +24,7 @@ export const teamGroups: TeamGroup[] = [
   {
     name: "Curation Team",
     slug: "curation",
-    image: teamImage("curation.png", 2391, 1706),
+    image: teamImage("curation.webp", 2391, 1706),
     members: [
       {
         name: "Efstathiou Fanis",
@@ -37,7 +37,7 @@ export const teamGroups: TeamGroup[] = [
   {
     name: "Graphics & Design Team",
     slug: "graphs",
-    image: teamImage("graphs.png", 2391, 1706),
+    image: teamImage("graphs.webp", 4212, 1928),
     members: [
       {
         name: "Lykas Alkiviadis",
@@ -55,9 +55,9 @@ export const teamGroups: TeamGroup[] = [
     ],
   },
   {
-    name: "Marketing Team",
+    name: "Marketing & IT Team",
     slug: "mark",
-    image: teamImage("marketing.png", 5755, 1965),
+    image: teamImage("marketing.webp", 5755, 1965),
     members: [
       {
         name: "Lekka Nikoleta",
@@ -83,7 +83,7 @@ export const teamGroups: TeamGroup[] = [
   {
     name: "Experience Team",
     slug: "exp",
-    image: teamImage("exp.png", 6041, 2015),
+    image: teamImage("exp.webp", 6041, 2015),
     members: [
       {
         name: "Koutsiouba Argyrh",
@@ -109,7 +109,7 @@ export const teamGroups: TeamGroup[] = [
   {
     name: "Speakers Team",
     slug: "speakers",
-    image: teamImage("speakers.png", 4605, 1733),
+    image: teamImage("speakers.webp", 4605, 1733),
     members: [
       {
         name: "Mytakidis Sotiris",
@@ -128,7 +128,7 @@ export const teamGroups: TeamGroup[] = [
   {
     name: "Sponsorships Team",
     slug: "spons",
-    image: teamImage("spons.png", 5693, 1779),
+    image: teamImage("spons.webp", 5693, 1779),
     members: [
       {
         name: "Ntantalia Chysovalanto",

@@ -39,7 +39,6 @@ function EventMediaImage({ src, alt }: { src: string; alt: string }) {
       height={520}
       sizes="(max-width: 720px) 92vw, 36rem"
       className="event-detail-image"
-      unoptimized
       onError={() => setHidden(true)}
     />
   );

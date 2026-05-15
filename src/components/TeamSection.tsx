@@ -14,6 +14,20 @@ function CoverTitle({ id, label, className = "" }: { id: string; label: string; 
 }
 
 export default function TeamSection() {
+  const renderTeamCopy = (team: (typeof teamGroups)[number], className: string) => (
+    <div className={className}>
+      <h3>{team.name}</h3>
+      <ul aria-label={`${team.name} members`}>
+        {team.members.map((member) => (
+          <li key={member.name}>
+            {member.director ? "(D) " : ""}
+            {member.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
   return (
     <section id="team" className="cover-section teams-cover" aria-labelledby="team-title">
       <CoverTitle id="team-title" label="TEAMS" className="teams-title" />
@@ -29,29 +43,20 @@ export default function TeamSection() {
                     alt={`${team.name} members`}
                     width={team.image.width}
                     height={team.image.height}
-                    sizes="(max-width: 720px) 92vw, (max-width: 1100px) 78vw, 56vw"
+                    sizes="(max-width: 720px) 92vw, (max-width: 1100px) 82vw, 68vw"
                     className="team-photo-image"
-                    unoptimized
                   />
                 </figure>
               </div>
 
-              <div className="team-copy">
-                <h3>{team.name.toLowerCase()}</h3>
-                <ul aria-label={`${team.name} members`}>
-                  {team.members.map((member) => (
-                    <li key={member.name}>
-                      {member.director ? "(D) " : ""}
-                      {member.name}
-                    </li>
-                  ))}
-                </ul>
+              <div className="team-copy-stack">
+                {renderTeamCopy(team, "team-copy")}
               </div>
             </article>
           );
         })}
       </div>
-      <div className="h-130 bg-white" aria-hidden="true" />
+      <div className="h-150 bg-white" aria-hidden="true" />
     </section>
   );
 }

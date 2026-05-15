@@ -10,7 +10,7 @@
   --teams-content-padding-inline: clamp(1rem, 3vw, 3rem);
   --teams-cover-overflow: visible;
   --teams-cover-padding-bottom: clamp(6rem, 12vw, 12rem);
-  --teams-cover-padding-top: clamp(4.5rem, 8vw, 8rem);
+  --teams-cover-padding-top: clamp(2.5rem, 4vw, 6rem);
   --teams-title-margin-left: 0;
   --teams-title-top: clamp(5.4rem, 8vw, 8.4rem);
   --teams-title-width: 100vw;
@@ -35,6 +35,13 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .has-site-cursor,
+  .has-site-cursor * {
+    cursor: none !important;
+  }
+}
+
 a {
   text-decoration: none;
 }
@@ -42,6 +49,30 @@ a {
 ::selection {
   background: #008d47;
   color: #ffffff;
+}
+
+/* Site cursor */
+
+.site-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  width: clamp(2.5rem, 5vw, 4.75rem);
+  aspect-ratio: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-100vw, -100vh, 0) translate(-50%, -50%);
+  transition: opacity 120ms ease;
+  will-change: transform;
+}
+
+.site-cursor-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 /* Navigation */
@@ -317,7 +348,6 @@ a {
 .event-detail-panel {
   display: grid;
   gap: clamp(1.75rem, 3vw, 3rem);
-  padding-bottom: clamp(2rem, 5vw, 4rem);
   color: #000000;
 }
 
@@ -480,7 +510,7 @@ a {
 
 .teams-content {
   position: relative;
-  z-index: 4;
+  z-index: 8;
   display: grid;
   gap: 0;
   margin-top: var(--teams-content-margin-top);
@@ -519,27 +549,30 @@ a {
 }
 
 .team-group-graphs .team-photo-card {
-  width: min(100%, clamp(48rem, 62vw, 66rem));
+  width: min(100%, clamp(54rem, 62vw, 68rem));
 }
 
 .team-group-mark .team-photo-card {
-  width: min(100%, clamp(102rem, 106vw, 116rem));
-  transform: translateY(4rem) translateX(-1rem);
+  width: min(100%, clamp(116rem, 126vw, 130rem));
+  transform: translateY(6rem) translateX(-1rem);
+
 }
 
 .team-group-exp .team-photo-card {
-  width: min(100%, clamp(102rem, 106vw, 116rem));
-  transform: translateY(4rem) translateX(-1rem);
+  width: min(100%, clamp(112rem, 116vw, 126rem));
+  transform: translateY(6rem) translateX(-1rem);
 }
 
 .team-group-speakers .team-photo-card {
-  width: min(100%, clamp(54rem, 66vw, 70rem));
-  transform: translateY(4rem) translateX(-1rem);
+  width: min(100%, clamp(56rem, 64vw, 68rem));
+  transform: translateY(2rem) translateX(-1rem);
+
 }
 
 .team-group-spons .team-photo-card {
   width: min(100%, clamp(70rem, 80vw, 84rem));
-  transform: translateY(4rem) translateX(-1rem);
+  transform: translateY(0rem) translateX(-1rem);
+  
 }
 
 .team-photo-image {
@@ -548,17 +581,31 @@ a {
   height: auto;
 }
 
-.team-copy {
+.team-copy-stack {
   position: relative;
-  z-index: 6;
+  z-index: 12;
   justify-self: end;
   max-width: 18rem;
-  color: rgb(0 0 0 / 78%);
+  display: grid;
+}
+
+.team-copy {
+  position: relative;
+  grid-area: 1 / 1;
+  z-index: 12;
+  justify-self: end;
+  max-width: 18rem;
+  color: #ffffff;
   font-size: clamp(1rem, 1.2vw, 1.28rem);
   font-style: italic;
   font-weight: 300;
   line-height: 1.22;
   text-align: right;
+  -webkit-text-stroke: 0.07em #000000;
+  paint-order: stroke fill;
+  text-shadow:
+    0 1px 2px rgb(0 0 0 / 55%),
+    0 0 0.18em rgb(255 255 255 / 78%);
 }
 
 .team-copy h3 {
@@ -759,9 +806,12 @@ a {
     background: transparent;
   }
 
-  .team-copy {
+  .team-copy-stack {
     justify-self: center;
     max-width: min(100%, 30rem);
+  }
+
+  .team-copy {
     text-align: center;
   }
 }
