@@ -671,7 +671,7 @@ a {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 850;
   letter-spacing: 0;
-  line-height: 0.69;
+  line-height: 0.72;
   white-space: nowrap;
 }
 
@@ -691,7 +691,7 @@ a {
   text-align: right;
   transform: scaleY(1.1);
   transform-origin: top right;
-  transform: translateY(0.55em) translateX(0.2em);
+  transform: translateY(0.55em);
 }
 
 .about-brand-connector {
@@ -708,9 +708,9 @@ a {
   z-index: 4;
   display: grid;
   width: 100vw;
-  grid-template-columns: 5vw minmax(0, 40vw) minmax(15rem, 15vw) minmax(22, 42vw);
+  grid-template-columns: 5vw minmax(0, 45vw) minmax(25rem, 15vw) minmax(18rem, 32vw);
   column-gap: 0;
-  margin: clamp(3.5rem, 5.5vw, 6rem) auto 0;
+  margin: clamp(1.25rem, 2vw, 2.75rem) auto 0;
   align-items: start;
 }
 
@@ -773,7 +773,7 @@ a {
 
   .about-copy-grid {
     grid-template-columns: minmax(0, 1fr) minmax(3rem, 10vw) minmax(0, 1fr);
-    margin-top: clamp(2.5rem, 5vw, 4rem);
+    margin-top: clamp(1.75rem, 4vw, 3.25rem);
   }
 
   .about-copy-ted {
@@ -927,7 +927,7 @@ a {
     width: min(100% - 2rem, 34rem);
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-top: clamp(2rem, 9vw, 3.5rem);
+    margin-top: clamp(1.35rem, 7vw, 2.75rem);
   }
 
   .about-copy-block,
