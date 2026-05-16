@@ -271,22 +271,12 @@ a {
   display: flex;
   width: min(100% - 2rem, 118rem);
   max-width: none;
-  flex-direction: column;
-  gap: clamp(0.18rem, 0.5vw, 0.45rem);
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: clamp(0.35rem, 0.7vw, 0.65rem) clamp(0.75rem, 1.65vw, 2.65rem);
   margin-top: clamp(0.2rem, 0.8vw, 0.65rem);
   align-items: center;
-}
-
-.year-stack .year-row {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: clamp(2.65rem, 1.65vw, 1.5rem);
-  align-items: center;
   justify-content: center;
-}
-
-.year-stack .year-row:nth-child(3) {
-  justify-content: flex-start;
 }
 
 .year-stack .year-item {
@@ -327,8 +317,7 @@ a {
   text-shadow: 0 0 0.05em rgb(255 8 0 / 32%);
 }
 
-.year-stack .year-item-disabled,
-.year-stack .year-item-overflow {
+.year-stack .year-item-disabled {
   cursor: default;
 }
 
@@ -682,7 +671,7 @@ a {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 850;
   letter-spacing: 0;
-  line-height: 0.72;
+  line-height: 0.69;
   white-space: nowrap;
 }
 
@@ -702,7 +691,7 @@ a {
   text-align: right;
   transform: scaleY(1.1);
   transform-origin: top right;
-  transform: translateY(0.55em);
+  transform: translateY(0.55em) translateX(0.2em);
 }
 
 .about-brand-connector {
@@ -718,9 +707,9 @@ a {
   position: relative;
   z-index: 4;
   display: grid;
-  width: min(100% - 2rem, 104rem);
-  grid-template-columns: 41fr 34fr 25fr;
-  column-gap: clamp(1rem, 3vw, 4rem);
+  width: 100vw;
+  grid-template-columns: 5vw minmax(0, 40vw) minmax(15rem, 15vw) minmax(22, 42vw);
+  column-gap: 0;
   margin: clamp(3.5rem, 5.5vw, 6rem) auto 0;
   align-items: start;
 }
@@ -742,15 +731,19 @@ a {
 }
 
 .about-copy-ted {
-  grid-column: 1;
-  max-width: 52rem;
+  grid-column: 2;
+  width: 100%;
+  max-width: none;
   text-align: left;
 }
 
 .about-copy-tedx {
-  grid-column: 3;
+  grid-column: 4;
   justify-self: end;
-  max-width: 36rem;
+  width: 100%;
+  max-width: none;
+  padding-right: clamp(5rem, 8vw, 10rem);
+  box-sizing: border-box;
   text-align: center;
 }
 
@@ -781,6 +774,14 @@ a {
   .about-copy-grid {
     grid-template-columns: minmax(0, 1fr) minmax(3rem, 10vw) minmax(0, 1fr);
     margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .about-copy-ted {
+    grid-column: 1;
+  }
+
+  .about-copy-tedx {
+    grid-column: 3;
   }
 
   .about-copy-block {
@@ -854,13 +855,8 @@ a {
     align-items: stretch;
   }
 
-  .year-stack .year-row {
-    flex-wrap: wrap;
+  .year-stack {
     gap: clamp(0.35rem, 2.8vw, 0.85rem);
-    justify-content: center;
-  }
-
-  .year-stack .year-row:nth-child(3) {
     justify-content: center;
   }
 
@@ -868,8 +864,7 @@ a {
     font-size: clamp(2.45rem, 14.5vw, 4.8rem);
   }
 
-  .year-stack .year-item-disabled,
-  .year-stack .year-item-overflow {
+  .year-stack .year-item-disabled {
     display: none;
   }
 
@@ -1003,7 +998,7 @@ a {
 }
 
 @media (max-width: 420px) {
-  .year-stack .year-row {
+  .year-stack {
     gap: clamp(0.2rem, 2vw, 0.5rem);
   }
 

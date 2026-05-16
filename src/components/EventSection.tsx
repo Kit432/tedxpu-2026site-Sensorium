@@ -1,6 +1,6 @@
 "use client";
 
-import { eventYearRows, events } from "@/data/eventData";
+import { eventYears, events } from "@/data/eventData";
 import type { HistoryEvent } from "@/data/eventData";
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -106,41 +106,28 @@ export default function EventSection() {
       <CoverTitle id="events-title" label="EVENTS" />
 
       <div className="section-inner year-stack" aria-label="Event years">
-        {eventYearRows.map((row, rowIndex) => (
-          <div key={rowIndex} className="year-row">
-            {row.map((year, itemIndex) => {
-              const isOverflowYear =
-                rowIndex === 1 && year === "2020" && (itemIndex === 0 || itemIndex === row.length - 1);
-
-              return (
-                eventsByYear.has(year) && !isOverflowYear ? (
-                  <button
-                    key={`${rowIndex}-${itemIndex}-${year}`}
-                    type="button"
-                    className={
-                      selectedYear === year
-                        ? "year-item year-item-interactive year-item-selected"
-                        : "year-item year-item-interactive"
-                    }
-                    aria-pressed={selectedYear === year}
-                    aria-controls="event-detail-panel"
-                    onClick={() => setSelectedYear((currentYear) => (currentYear === year ? null : year))}
-                  >
-                    {year}
-                  </button>
-                ) : (
-                  <span
-                    key={`${rowIndex}-${itemIndex}-${year}`}
-                    className={isOverflowYear ? "year-item year-item-overflow" : "year-item year-item-disabled"}
-                    aria-disabled="true"
-                  >
-                    {year}
-                  </span>
-                )
-              );
-            })}
-          </div>
-        ))}
+        {eventYears.map((year) =>
+          eventsByYear.has(year) ? (
+            <button
+              key={year}
+              type="button"
+              className={
+                selectedYear === year
+                  ? "year-item year-item-interactive year-item-selected"
+                  : "year-item year-item-interactive"
+              }
+              aria-pressed={selectedYear === year}
+              aria-controls="event-detail-panel"
+              onClick={() => setSelectedYear((currentYear) => (currentYear === year ? null : year))}
+            >
+              {year}
+            </button>
+          ) : (
+            <span key={year} className="year-item year-item-disabled" aria-disabled="true">
+              {year}
+            </span>
+          )
+        )}
       </div>
 
       {selectedEvent ? (
