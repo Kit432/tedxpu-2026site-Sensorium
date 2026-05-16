@@ -72,7 +72,6 @@ a {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  mix-blend-mode: multiply;
 }
 
 /* Navigation */
@@ -512,7 +511,7 @@ a {
   position: relative;
   z-index: 8;
   display: grid;
-  gap: 0;
+  gap: var(--teams-content-gap);
   margin-top: var(--teams-content-margin-top);
   padding: 0 var(--teams-content-padding-inline);
 }
@@ -669,44 +668,50 @@ a {
 .about-brand-row {
   position: relative;
   z-index: 3;
-  left: clamp(7rem, 13vw, 16rem);
   display: grid;
-  width: min(100% - 2rem, 94rem);
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  column-gap: clamp(0.7rem, 1.9vw, 2.4rem);
-  align-items: end;
-  margin: clamp(-1rem, -1vw, -0.35rem) auto 0;
+  width: 100vw;
+  grid-template-columns: auto auto auto;
+  column-gap: clamp(1.25rem, 1.1vw, 1.7rem);
+  justify-content: end;
+  align-items: start;
+  margin: clamp(-10rem, -13vw, -14rem) calc(50% - 50vw) 0;
 }
 
 .about-brand {
   display: block;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: 950;
+  font-weight: 850;
   letter-spacing: 0;
   line-height: 0.72;
   white-space: nowrap;
 }
 
-.about-brand-ted,
+.about-brand-ted {
+  padding-left: clamp(-0.75rem, 2vw, 2.5rem);
+  color: #ff0800;
+  font-size: clamp(5rem, 13.5vw, 14.2rem);
+  text-align: right;
+  transform: scaleY(1.1);
+  transform-origin: top right;
+  transform: translateY(0.55em) translateX(0.2em);
+}
+
 .about-brand-tedx {
   color: #ff0800;
   font-size: clamp(5rem, 13.5vw, 14.2rem);
-}
-
-.about-brand-ted {
   text-align: right;
-}
-
-.about-brand-tedx {
-  text-align: left;
+  transform: scaleY(1.1);
+  transform-origin: top right;
+  transform: translateY(0.55em);
 }
 
 .about-brand-connector {
+  align-self: start;
   color: #000000;
-  font-size: clamp(11rem, 31vw, 31rem);
-  line-height: 0.46;
-  margin-inline: clamp(-2.4rem, -2vw, -1rem);
-  transform: translateY(0.1em);
+  font-size: clamp(9rem, 25vw, 31rem);
+  line-height: 0.72;
+  margin-inline: clamp(-1.6rem, -1.4vw, -0.6rem);
+  transform: translateY(0.24em) translateX(0.1em);
 }
 
 .about-copy-grid {
@@ -766,7 +771,7 @@ a {
   }
 
   .about-brand-row {
-    left: clamp(2rem, 8vw, 5rem);
+    column-gap: clamp(0.15rem, 0.8vw, 0.8rem);
   }
 
   .about-brand-connector {
@@ -804,6 +809,17 @@ a {
     justify-content: center;
     margin: 0;
     background: transparent;
+    transform: none;
+  }
+
+  .team-group-curation .team-photo-card,
+  .team-group-graphs .team-photo-card,
+  .team-group-mark .team-photo-card,
+  .team-group-exp .team-photo-card,
+  .team-group-speakers .team-photo-card,
+  .team-group-spons .team-photo-card {
+    width: min(100%, clamp(30rem, 72vw, 62rem));
+    transform: none;
   }
 
   .team-copy-stack {
@@ -818,15 +834,67 @@ a {
 
 @media (max-width: 720px) {
   :root {
-    --teams-content-gap: 0;
+    --teams-content-gap: clamp(3rem, 12vw, 5rem);
     --teams-content-margin-top: -1.5rem;
     --teams-content-padding-inline: 1rem;
     --teams-cover-overflow: hidden;
-    --teams-cover-padding-bottom: clamp(110rem, 320vw, 160rem);
+    --teams-cover-padding-bottom: clamp(4rem, 18vw, 7rem);
     --teams-cover-padding-top: clamp(4rem, 16vw, 6rem);
     --teams-title-margin-left: -17.5vw;
     --teams-title-top: 5.5rem;
     --teams-title-width: 135vw;
+  }
+
+  .site-sections {
+    margin-top: -58svh;
+  }
+
+  .year-stack {
+    width: min(100% - 1rem, 34rem);
+    align-items: stretch;
+  }
+
+  .year-stack .year-row {
+    flex-wrap: wrap;
+    gap: clamp(0.35rem, 2.8vw, 0.85rem);
+    justify-content: center;
+  }
+
+  .year-stack .year-row:nth-child(3) {
+    justify-content: center;
+  }
+
+  .year-stack .year-item {
+    font-size: clamp(2.45rem, 14.5vw, 4.8rem);
+  }
+
+  .year-stack .year-item-disabled,
+  .year-stack .year-item-overflow {
+    display: none;
+  }
+
+  .teams-cover {
+    overflow: hidden;
+    min-height: auto;
+  }
+
+  .team-card-collage {
+    min-height: auto;
+  }
+
+  .team-photo-card,
+  .team-group-curation .team-photo-card,
+  .team-group-graphs .team-photo-card,
+  .team-group-mark .team-photo-card,
+  .team-group-exp .team-photo-card,
+  .team-group-speakers .team-photo-card,
+  .team-group-spons .team-photo-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .about-section {
+    margin-top: 0;
   }
 
   .about-cover {
@@ -835,27 +903,29 @@ a {
 
   .about-title {
     left: 50%;
-    width: 1010vw;
+    width: 100vw;
   }
 
   .about-brand-row {
-    left: 0;
-    width: min(100% - 1.5rem, 28rem);
-    grid-template-columns: 1fr;
-    justify-items: center;
-    row-gap: 0.35rem;
+    grid-template-columns: auto auto auto;
+    column-gap: 0;
     margin-top: -0.2rem;
   }
 
-  .about-brand-ted,
+  .about-brand-ted {
+    padding-left: 0.35rem;
+    font-size: clamp(2.7rem, 14vw, 7rem);
+    text-align: right;
+  }
+
   .about-brand-tedx {
-    font-size: clamp(4.5rem, 25vw, 7rem);
-    text-align: center;
+    font-size: clamp(2.7rem, 14vw, 7rem);
+    text-align: right;
   }
 
   .about-brand-connector {
-    font-size: clamp(7rem, 37vw, 11rem);
-    margin-block: -0.2rem -0.4rem;
+    font-size: clamp(4.5rem, 24vw, 11rem);
+    margin-inline: clamp(-0.75rem, -1vw, -0.2rem);
   }
 
   .about-copy-grid {
@@ -882,11 +952,6 @@ a {
 
   .cover-title {
     width: 100vw;
-  }
-
-
-  .team-photo-card {
-    width: 100%;
   }
 
   .team-copy {
@@ -928,6 +993,26 @@ a {
 
   .hero-scroll-cue {
     display: none;
+  }
+
+  #events,
+  #team,
+  #about {
+    scroll-margin-top: 8.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .year-stack .year-row {
+    gap: clamp(0.2rem, 2vw, 0.5rem);
+  }
+
+  .year-stack .year-item {
+    font-size: clamp(2.2rem, 14vw, 3.7rem);
+  }
+
+  .about-copy-grid {
+    width: min(100% - 1.5rem, 34rem);
   }
 }
 
