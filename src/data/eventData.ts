@@ -15,6 +15,7 @@ export type HistoryEvent = {
 };
 
 export const eventYears = [
+  "2026",
   "X.ANNIVERSARY",
   "2025",
   "2024",
