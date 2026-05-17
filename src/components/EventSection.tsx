@@ -103,7 +103,7 @@ export default function EventSection() {
 
   return (
     <section id="events" className="cover-section events-cover" aria-labelledby="events-title">
-      <CoverTitle id="events-title" label="EVENTS" />
+      <CoverTitle id="events-title" label="EVENTS" className="events-title" />
 
       <div className="section-inner year-stack" aria-label="Event years">
         {eventYears.map((year) =>

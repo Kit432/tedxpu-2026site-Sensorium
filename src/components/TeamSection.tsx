@@ -56,7 +56,7 @@ export default function TeamSection() {
           );
         })}
       </div>
-      <div className="h-150 bg-white" aria-hidden="true" />
+      <div className="teams-end-spacer h-150 bg-white" aria-hidden="true" />
     </section>
   );
 }
