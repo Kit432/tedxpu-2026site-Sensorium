@@ -4,7 +4,7 @@ import EventSection from "@/components/EventSection";
 import TeamSection from "@/components/TeamSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
-import ConsoleSignature from "@/components/ConsoleSignature";
+import ConsoleSignature from "@/components/misc/ConsoleSignature";
 
 export default function HomePage() {
   return (
