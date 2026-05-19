@@ -466,6 +466,29 @@ a {
   object-position: left center;
 }
 
+.event-sponsor-spotlight {
+  align-self: start;
+  width: 100%;
+}
+
+.event-sponsor-spotlight a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.event-sponsor-spotlight-image {
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  border: 1px solid rgb(0 0 0 / 16%);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 1.2rem 3rem rgb(0 0 0 / 10%);
+  object-fit: contain;
+  object-position: center;
+}
+
 .event-detail-copy {
   display: grid;
   gap: 1em;
@@ -1142,6 +1165,11 @@ a {
     max-height: min(62svh, 28rem);
     justify-self: center;
     object-position: center;
+  }
+
+  .event-sponsor-spotlight-image {
+    width: 100%;
+    max-height: none;
   }
 
   .event-number {
