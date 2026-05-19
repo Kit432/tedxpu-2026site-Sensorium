@@ -97,11 +97,21 @@ a {
   transition: transform 220ms ease;
 }
 
-.nav-link:hover::after,
-.nav-link:focus-visible::after,
 .nav-link-active::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.nav-link:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 0.22em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
 
 @media (max-width: 900px) {
