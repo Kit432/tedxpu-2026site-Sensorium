@@ -1,0 +1,17 @@
+{
+  "name": "TEDxPanteion University 2026",
+  "short_name": "TEDxPU",
+  "description": "Sensorium, the 2026 TEDxPanteion University event.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff0800",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
