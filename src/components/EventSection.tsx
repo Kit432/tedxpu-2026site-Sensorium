@@ -5,6 +5,8 @@ import type { HistoryEvent } from "@/data/eventData";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
+const anniversaryLink = "https://tedxpux.netlify.app/";
+
 function CoverTitle({ id, label, className = "" }: { id: string; label: string; className?: string }) {
   return (
     <h2 id={id} className={`cover-title ${className}`} aria-label={label}>
@@ -25,19 +27,21 @@ function getDescriptionParagraphs(description: string) {
 }
 
 const eventImageSizes: Record<string, { width: number; height: number }> = {
-  "/assets/events/2016.jpg": { width: 620, height: 300 },
-  "/assets/events/2017.jpg": { width: 1024, height: 533 },
-  "/assets/events/2018.jpg": { width: 1024, height: 427 },
-  "/assets/events/2019.jpg": { width: 1280, height: 532 },
-  "/assets/events/2021.jpg": { width: 1382, height: 1362 },
-  "/assets/events/2022.jpg": { width: 1240, height: 1240 },
-  "/assets/events/2023.jpg": { width: 670, height: 670 },
-  "/assets/events/2024.jpg": { width: 260, height: 132 },
-  "/assets/events/2025.jpg": { width: 2500, height: 1309 },
-  "/assets/events/Sponsors2025.jpg": { width: 1920, height: 1080 },
+  "/assets/events/2016.avif": { width: 620, height: 300 },
+  "/assets/events/2017.avif": { width: 1024, height: 533 },
+  "/assets/events/2018.avif": { width: 1024, height: 427 },
+  "/assets/events/2019.avif": { width: 1280, height: 532 },
+  "/assets/events/2021.avif": { width: 1382, height: 1362 },
+  "/assets/events/2022.avif": { width: 1240, height: 1240 },
+  "/assets/events/2023.avif": { width: 670, height: 670 },
+  "/assets/events/2024.avif": { width: 260, height: 132 },
+  "/assets/events/2025.avif": { width: 2500, height: 1309 },
+  "/assets/events/Sponsors2025.avif": { width: 1920, height: 1080 },
+  "/assets/events/2026.avif": { width: 2500, height: 1309 },
+  "/assets/events/Sponsors2026.avif": { width: 1920, height: 1080 },
 };
 
-function EventMediaImage({ src, alt }: { src: string; alt: string }) {
+function EventMediaImage({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
   const [hidden, setHidden] = useState(false);
   const imageSize = eventImageSizes[src] ?? { width: 900, height: 520 };
 
@@ -52,7 +56,7 @@ function EventMediaImage({ src, alt }: { src: string; alt: string }) {
       width={imageSize.width}
       height={imageSize.height}
       sizes="(max-width: 720px) calc(100vw - 2rem), 36rem"
-      className="event-detail-image"
+      className={`event-detail-image ${className}`.trim()}
       onError={() => setHidden(true)}
     />
   );
@@ -60,6 +64,7 @@ function EventMediaImage({ src, alt }: { src: string; alt: string }) {
 
 function EventDetailPanel({ event, onClose }: { event: HistoryEvent; onClose: () => void }) {
   const descriptionParagraphs = getDescriptionParagraphs(event.description);
+  const sponsorSpotlightSrc = event.year === 2026 ? event.sponsors : undefined;
 
   return (
     <article className="event-detail-panel" aria-live="polite">
@@ -94,17 +99,31 @@ function EventDetailPanel({ event, onClose }: { event: HistoryEvent; onClose: ()
             ) : null}
           </div>
 
-          {event.sponsors ? <EventMediaImage src={event.sponsors} alt={`${event.year} sponsors`} /> : null}
+          {event.sponsors && !sponsorSpotlightSrc ? (
+            <EventMediaImage src={event.sponsors} alt={`${event.year} sponsors`} />
+          ) : null}
         </div>
 
-        <div className="event-speaker-list" aria-label={`${event.year} speakers`}>
-          {event.speakers.map((speaker) => (
-            <a key={`${speaker.name}-${speaker.title}`} href={speaker.url} target="_blank" rel="noreferrer">
-              <span className="event-speaker-title">{speaker.title}</span>
-              <span className="event-speaker-name">{speaker.name}</span>
+        {sponsorSpotlightSrc ? (
+          <aside className="event-sponsor-spotlight" aria-label={`${event.year} sponsors`}>
+            <a href={sponsorSpotlightSrc} target="_blank" rel="noreferrer">
+              <EventMediaImage
+                src={sponsorSpotlightSrc}
+                alt={`${event.year} sponsors`}
+                className="event-sponsor-spotlight-image"
+              />
             </a>
-          ))}
-        </div>
+          </aside>
+        ) : (
+          <div className="event-speaker-list" aria-label={`${event.year} speakers`}>
+            {event.speakers.map((speaker) => (
+              <a key={`${speaker.name}-${speaker.title}`} href={speaker.url} target="_blank" rel="noreferrer">
+                <span className="event-speaker-title">{speaker.title}</span>
+                <span className="event-speaker-name">{speaker.name}</span>
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );
@@ -121,6 +140,17 @@ export default function EventSection() {
 
       <div className="section-inner year-stack" aria-label="Event years">
         {eventYears.map((year) =>
+          year === "X.ANNIVERSARY" ? (
+            <a
+              key={year}
+              className="year-item year-item-interactive year-item-anniversary"
+              href={anniversaryLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {year}
+            </a>
+          ) : 
           eventsByYear.has(year) ? (
             <button
               key={year}
