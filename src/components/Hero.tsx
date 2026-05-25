@@ -3,7 +3,7 @@
 import { heroDoodles, heroStaticDoodles, targetDateMs } from "@/data/hero";
 import type { HeroDoodle, HeroStaticDoodle } from "@/data/hero";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const eventStartedLabel = "Event Started";
 const eventStartedVisibleUntilMs = targetDateMs + 24 * 60 * 60 * 1000;
@@ -83,12 +83,27 @@ export default function Hero() {
   const staticDoodleGroupRef = useRef<HTMLDivElement | null>(null);
   const [timerLabel, setTimerLabel] = useState(getTimerLabel);
 
+  useLayoutEffect(() => {
+    setTimerLabel(getTimerLabel());
+  }, []);
+
   useEffect(() => {
     const interval = window.setInterval(() => {
       setTimerLabel(getTimerLabel());
     }, 1000);
 
-    return () => window.clearInterval(interval);
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        setTimerLabel(getTimerLabel());
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("pageshow", handlePageShow);
+    };
   }, []);
 
   useEffect(() => {
